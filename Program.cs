@@ -12,11 +12,13 @@ namespace vNextConsoleApp
             try {
                 fun.PassInAMessage(null);
             }
-            catch (InvalidOperationException) { // exception filters
+            catch (ArgumentNullException ex) if (ex.ParamName == "somethingelse")
+            { // exception filters
                 // Do something with this
             }
-            catch (ArgumentNullException) {
-                WriteLine("Why were exception filters not in 1.0?");  // again, no need for Console.WriteLine
+            catch (ArgumentNullException ex) if (ex.ParamName == "message")
+            {
+                WriteLine("This is what an exception filter *actually* looks like");  // again, no need for Console.WriteLine
             }
             // null conditional operators: no NRE! If the tree doesn't have left values, we don't care!
             WriteLine("The value of the third node on the left is: \{(new Tree()?.Left?.Left?.Left?.Value ?? "empty")}");
